@@ -1,0 +1,35 @@
+key-dirs:
+  - artifacts/gpg-keys
+skip-git-fetch: true
+backend-vmm: xen
+debug: true
+verbose: true
+qubes-release: r4.2
+use-qubes-repo:
+  version: 4.2
+distributions:
+  - host-fc37
+  - vm-bookworm
+  - vm-fc41
+components:
+  - linux-intel-lts-kernel:
+      url: https://github.com/maxcable/qubes-linux-intel-lts-kernel
+      branch: main
+      timeout: 21600
+      maintainers:
+        # maxcable
+        - '95C2C5F7D95BD6106BFB67240FCB1E55C208B8B3'
+executor:
+  type: docker
+  options:
+    image: "qubes-builder-fedora:latest"
+# executor:
+#   type: qubes
+#   options:
+#     dispvm: "@dispvm"
+stages:
+  - fetch
+  - prep
+  - build
+  - post
+  - verify
